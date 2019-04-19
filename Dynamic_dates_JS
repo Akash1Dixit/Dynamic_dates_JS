@@ -1,0 +1,138 @@
+{
+   "title": "Dynamic Dates HTML",
+   "id": "96d6158bfdc02b036a23e92a74826a40",
+   "workspace": {
+      "dimensions": {
+         "w": 550
+      },
+      "datasources": [
+         "32dce20eb076a81dccafa9aa16737f89"
+      ]
+   },
+   "appliedMigrations": {
+      "post_dst": true,
+      "separate_root_dsts": true,
+      "result_rows2": true
+   },
+   "components": [
+      {
+         "type": "html_tpl2",
+         "id": "f820da58-1",
+         "displayName": "HTML Template",
+         "dstContext": {
+            "id": "dstf820da581"
+         },
+         "components": [
+            {
+               "type": "html_data",
+               "role": "data",
+               "id": "7cb679f7-2",
+               "displayName": "Series1",
+               "fmt": "txt",
+               "fmtArgs": {
+                  "resultMetadata": {
+                     "ignoreDateFormat": true,
+                     "isAggregated": false,
+                     "expiryScheme": [
+                        {
+                           "expiryType": "EOD",
+                           "expiryTimezoneId": null
+                        }
+                     ],
+                     "formulaIsDataPointer": false,
+                     "suggestedName": "Unnamed 1",
+                     "resultCount": 1
+                  },
+                  "autoFmt": {
+                     "fmtArgs": {},
+                     "defaultAggregate": "COUNT",
+                     "fmt": "txt"
+                  }
+               },
+               "dstContext": {
+                  "id": "dst7cb679f72",
+                  "kid": "96d6158bfdc02b036a23e92a74826a40"
+               },
+               "isDstRoot": true,
+               "formulas": [
+                  {
+                     "txt": "ARRAY(\"Year To Date\",\"Quarter To Date\",\"Month To Date\",\"Week To Date\",MAPFLAT(ARRAY(0,CUMULATIVE(REPEAT(-1,COUNT(GROUP(DATEVALUE(DATERANGE(DATE_STARTOF(TODAY(),\"1\"),TODAY()),\"yyMM\")))-1))),\"month\",DATEVALUE(DATE_ADD(TODAY(),\"3\",$month),\"MMMM yyyy\")))",
+                     "ver": 2
+                  }
+               ],
+               "data": [
+                  [
+                     "Year To Date",
+                     "Quarter To Date",
+                     "Month To Date",
+                     "Week To Date",
+                     "April 2019",
+                     "March 2019",
+                     "February 2019",
+                     "January 2019"
+                  ]
+               ],
+               "autoFmt": true,
+               "mixin": "label",
+               "dataId": "Series1"
+            },
+            {
+               "type": "html_data",
+               "role": "data",
+               "id": "8e4cbff3-1",
+               "displayName": "Series2",
+               "fmt": "txt",
+               "fmtArgs": {
+                  "resultMetadata": {
+                     "ignoreDateFormat": true,
+                     "isAggregated": false,
+                     "expiryScheme": [
+                        {
+                           "expiryType": "EOD",
+                           "expiryTimezoneId": null
+                        }
+                     ],
+                     "formulaIsDataPointer": false,
+                     "suggestedName": "Unnamed 1",
+                     "resultCount": 1
+                  },
+                  "autoFmt": {
+                     "fmtArgs": {},
+                     "defaultAggregate": "COUNT",
+                     "fmt": "txt"
+                  }
+               },
+               "dstContext": {
+                  "id": "dst8e4cbff31",
+                  "kid": "96d6158bfdc02b036a23e92a74826a40"
+               },
+               "isDstRoot": true,
+               "formulas": [
+                  {
+                     "txt": "ARRAY(\"Year To Date\",\"Quarter To Date\",\"Month To Date\",\"Week To Date\",ARRAY(0,CUMULATIVE(REPEAT(-1,COUNT(GROUP(DATEVALUE(DATERANGE(DATE_STARTOF(TODAY(),\"1\"),TODAY()),\"yyMM\")))-1))))",
+                     "ver": 2
+                  }
+               ],
+               "data": [
+                  [
+                     "Year To Date",
+                     "Quarter To Date",
+                     "Month To Date",
+                     "Week To Date",
+                     "0",
+                     "-1",
+                     "-2",
+                     "-3"
+                  ]
+               ],
+               "autoFmt": true,
+               "mixin": "label",
+               "dataId": "Series2"
+            }
+         ],
+         "tpl": "<html>\n<body>\n  <center> \n     <label>Periods:\n<select class=\"dates\" name=\"dates\">\n        <option value=\"\">Select One …</option>\n        <option value=\"${data[0].Series2}\">${data[0].Series1}</option>\n        <option value=\"${data[1].Series2}\">${data[1].Series1}</option>\n        <option value=\"${data[2].Series2}\">${data[2].Series1}</option>\n        <option value=\"${data[3].Series2}\">${data[3].Series1}</option>\n        <option value=\"${data[4].Series1}\">${data[4].Series1}</option>\n        <option value=\"${data[5].Series1}\">${data[5].Series1}</option>\n        <option value=\"${data[6].Series1}\">${data[6].Series1}</option>\n        <option value=\"${data[7].Series1}\">${data[7].Series1}</option>\n      </select>\n   </label>\n<button id=\"myBtn\">Submit</button>\n</center>\n <br>\n<div class=\"result\"></div>\n<br>\n <a href=\"https://app.klipfolio.com/workspace/edit_klip/?i=cb7bc815e600e9ee7b894bd5890ebb0c\">Back</a>\n</body>\n</html>",
+         "script_tpl": "const%20selectElement%20=%20document.querySelector('.dates');%0A%0AselectElement.addEventListener('change',%20(event)%20=%3E%20%7B%0A%20%20%20%20const%20result%20=%20document.querySelector('.result');%0A%20%20%20%20result.textContent%20=%20%60You%20selected%20$%7Bevent.target.value%7D%20!please%20hit%20the%20submit%20button%20for%20your%20data%60;%0A%7D),document.getElementById(%22myBtn%22).addEventListener('click',%20function()%20%7B%0A%20%20%20alert(%22Your%20data%20has%20been%20submitted%22);%0A%7D);",
+         "overflow": "ns"
+      }
+   ]
+}
